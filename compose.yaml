@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  ecommerce-crm:
+    build: ./
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+  database:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: "spring"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - database:/var/lib/mysql
+
+volumes:
+  database:
